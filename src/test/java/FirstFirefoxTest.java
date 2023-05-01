@@ -13,7 +13,7 @@ public class FirstFirefoxTest {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.setBinary("/usr/bin/firefox");
 //        System.setProperty("webdriver.gecko.driver", "/snap/firefox/current/firefox.launcher");
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver");
+        System.setProperty("webdriver.gecko.driver", "src/main/resources/drivers/geckodriver");
 
         WebDriver driver = new FirefoxDriver(firefoxOptions);
         driver.get("http://the-internet.herokuapp.com/login");

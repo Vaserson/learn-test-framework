@@ -13,7 +13,7 @@ public class FirstChromeTest {
     @Test
     public void firstTest() {
         // Встановлення системної змінної зі шляхом до chromedriver
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver");
 
         // Створення драйверу
         WebDriver driver = new ChromeDriver();
@@ -39,7 +39,7 @@ public class FirstChromeTest {
     @Test
     public void filedLoginWithInvalidPassword() {
         // Встановлення системної змінної зі шляхом до chromedriver
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver");
 
         // Створення драйверу
         WebDriver driver = new ChromeDriver();
@@ -65,7 +65,7 @@ public class FirstChromeTest {
     @Test
     public void filedLoginWithInvalidLogin() {
         // Встановлення системної змінної зі шляхом до chromedriver
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver");
 
         // Створення драйверу
         WebDriver driver = new ChromeDriver();
