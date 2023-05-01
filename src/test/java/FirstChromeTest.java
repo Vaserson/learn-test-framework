@@ -1,23 +1,16 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-
 public class FirstChromeTest {
+    WebDriver driver;
 
     @Test
     public void firstTest() {
-        // Встановлення системної змінної зі шляхом до chromedriver
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver");
-
         // Створення драйверу
-        WebDriver driver = new ChromeDriver();
-
+        driver = WebDriverManager.chromedriver().create();
         // Далі пішла робота з драйвером
         driver.get("http://the-internet.herokuapp.com/login");
 
@@ -38,12 +31,8 @@ public class FirstChromeTest {
 
     @Test
     public void filedLoginWithInvalidPassword() {
-        // Встановлення системної змінної зі шляхом до chromedriver
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver");
-
         // Створення драйверу
-        WebDriver driver = new ChromeDriver();
-
+        driver = WebDriverManager.chromedriver().create();
         // Далі пішла робота з драйвером
         driver.get("http://the-internet.herokuapp.com/login");
 
@@ -64,12 +53,8 @@ public class FirstChromeTest {
 
     @Test
     public void filedLoginWithInvalidLogin() {
-        // Встановлення системної змінної зі шляхом до chromedriver
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver");
-
         // Створення драйверу
-        WebDriver driver = new ChromeDriver();
-
+        driver = WebDriverManager.chromedriver().create();
         // Далі пішла робота з драйвером
         driver.get("http://the-internet.herokuapp.com/login");
 
