@@ -1,4 +1,4 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
+import driver.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -12,7 +12,7 @@ public class FirstChromeTest {
     @BeforeMethod
     public void setUp() {
         // Створення драйверу
-        driver = WebDriverManager.chromedriver().create();
+        driver = new Driver().initDriver("chrome");
         // Далі пішла робота з драйвером
         driver.get("http://the-internet.herokuapp.com/login");
     }
