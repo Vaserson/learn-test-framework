@@ -2,10 +2,8 @@ package practice;
 
 import base.BaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -17,19 +15,6 @@ public class DriverMethods extends BaseTest {
     @BeforeMethod
     public void openPage() {
         driver.get("https://naveenautomationlabs.com/opencart/");
-    }
-
-    @Test
-    public void searchTest() throws InterruptedException {
-        driver.findElement(By.name("search")).sendKeys("IPhone", Keys.ENTER);
-
-        //TODO WebDriverWait
-        Thread.sleep(1000);
-
-        String searchTitle = driver.findElement(By.cssSelector("div[id='content'] h1")).getText();
-        System.out.println("searchTitle = " + searchTitle);
-
-        Assert.assertEquals(searchTitle, "Search - IPhone");
     }
 
     @Test
