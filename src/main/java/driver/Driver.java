@@ -6,7 +6,6 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -34,7 +33,6 @@ public class Driver {
             }
         }
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         return driver;
     }
@@ -70,26 +68,4 @@ public class Driver {
 
         return mobileDriver;
     }
-
-    /*
-     *
-     * OR
-     */
-/*    public WebDriver initDriver(String browser) {
-
-        if (browser.equalsIgnoreCase("chrome")) {
-            driver = WebDriverManager.chromedriver().create();
-        } else if (browser.equalsIgnoreCase("firefox")) {
-            WebDriverManager.firefoxdriver().setup();
-
-            FirefoxOptions firefoxOptions = new FirefoxOptions();
-            firefoxOptions.setBinary("/usr/bin/firefox");
-
-            driver = new FirefoxDriver(firefoxOptions);
-        }
-        driver.manage().window().maximize();
-
-        return driver;
-    }*/
-
 }
