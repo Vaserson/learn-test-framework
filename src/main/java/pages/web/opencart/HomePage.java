@@ -6,23 +6,23 @@ import pages.web.BasePage;
 
 public class HomePage extends BasePage {
 
+    // HOME PAGE
     private final By myAccountDropDown = By.xpath("//i[@class='fa fa-user']");
     private final By btnLogin = By.linkText("Login");
 
+    // LOGIN PAGE
     private final By fldEmail = By.id("input-email");
     private final By fldPassword = By.id("input-password");
     private final By btnLoginSubmit = By.cssSelector("input[value='Login']");
 
+    // ACCOUNT PAGE
     private final By linkAccountInfo = By.linkText("Edit your account information");
+
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
-
-    public void goTo(String url) {
-        driver.get(url);
-    }
 
     public void clickMyAccountDropDown() {
         driver.findElement(myAccountDropDown).click();
