@@ -6,7 +6,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.web.opencart.HomePage;
+import pages.web.opencart.bpmethods.AccountInfoPageBPMethods;
+import pages.web.opencart.bpmethods.HomePageBPMethods;
+import pages.web.opencart.explicit.AccountInfoPageExplicit;
+import pages.web.opencart.explicit.HomePageExplicit;
+import pages.web.opencart.pagefactory.AccountInfoPageFactory;
+import pages.web.opencart.pagefactory.HomePageFactory;
+import pages.web.opencart.standard.AccountInfoPageStandard;
+import pages.web.opencart.standard.HomePageStandard;
+import pages.web.opencart.bad.HomePageBadApproach;
 
 
 public class LoginTests extends BaseTest {
@@ -17,7 +25,7 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void successLogin() {
+    public void successLoginNoPOM() {
         driver.findElement(By.xpath("//i[@class='fa fa-user']")).click();
         driver.findElement(By.linkText("Login")).click();
         driver.findElement(By.id("input-email")).sendKeys("user@localhost.com");
@@ -29,7 +37,7 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void successLoginExplicitWait() {
+    public void successLoginExplicitWaitNoPOM() {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@class='fa fa-user']"))).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Login"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-email"))).sendKeys("user@localhost.com");
@@ -42,16 +50,82 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
+    public void successLoginPOMBadApproach() {
+        HomePageBadApproach homePageBadApproach = new HomePageBadApproach(driver, wait);
+
+        homePageBadApproach.clickMyAccountDropDown();
+        homePageBadApproach.clickBtnLogin();
+        homePageBadApproach.fillEmail("user@localhost.com");
+        homePageBadApproach.fillPassword("password");
+        homePageBadApproach.clickBtnLoginSubmit();
+        homePageBadApproach.clickLinkAccountInfo();
+
+        Assert.assertEquals(homePageBadApproach.getEmailFldValue(), "user@localhost.com");
+    }
+
+    @Test
     public void successLoginPOM() {
-        HomePage homePage = new HomePage(driver);
+        AccountInfoPageStandard accountInfoPageStandard = new HomePageStandard(driver, wait)
+                .clickMyAccountDropDown()
+                .clickBtnLogin()
+                .fillEmail("user@localhost.com")
+                .fillPassword("password")
+                .clickBtnLoginSubmit()
+                .clickLinkAccountInfo();
 
-        homePage.clickMyAccountDropDown();
-        homePage.clickBtnLogin();
-        homePage.fillEmail("user@localhost.com");
-        homePage.fillPassword("password");
-        homePage.clickBtnLoginSubmit();
-        homePage.clickLinkAccountInfo();
+        Assert.assertEquals(accountInfoPageStandard.getEmailFldValue(), "user@localhost.com");
+    }
 
-        Assert.assertEquals(homePage.getEmailFldValue(), "user@localhost.com");
+    @Test
+    public void failedLoginPOM() {
+        String errMsg = new HomePageStandard(driver, wait)
+                .clickMyAccountDropDown()
+                .clickBtnLogin()
+                .fillEmail("user@localhost.com")
+                .fillPassword("wrong_password")
+                .clickBtnLoginSubmitWithBadCredentials()
+                .getBadCredentialsErrorMessage();
+
+        Assert.assertEquals(errMsg, "Warning: No match for E-Mail Address and/or Password.");
+    }
+
+
+    @Test
+    public void successLoginPOMExplicitWait() {
+        AccountInfoPageExplicit accountInfoPageExplicit = new HomePageExplicit(driver, wait)
+                .clickMyAccountDropDown()
+                .clickBtnLogin()
+                .fillEmail("user@localhost.com")
+                .fillPassword("password")
+                .clickBtnLoginSubmit()
+                .clickLinkAccountInfo();
+
+        Assert.assertEquals(accountInfoPageExplicit.getEmailFldValue(), "user@localhost.com");
+    }
+
+    @Test
+    public void successLoginPOMExplicitWaitBasePageMethods() {
+        AccountInfoPageBPMethods accountInfoPageBPMethods = new HomePageBPMethods(driver, wait)
+                .clickMyAccountDropDown()
+                .clickBtnLogin()
+                .fillEmail("user@localhost.com")
+                .fillPassword("password")
+                .clickBtnLoginSubmit()
+                .clickLinkAccountInfo();
+
+        Assert.assertEquals(accountInfoPageBPMethods.getEmailFldValue(), "user@localhost.com");
+    }
+
+    @Test
+    public void successLoginPOMExplicitWaitPageFactory() {
+        AccountInfoPageFactory accountInfoPageFactory = new HomePageFactory(driver, wait)
+                .clickMyAccountDropDown()
+                .clickBtnLogin()
+                .fillEmail("user@localhost.com")
+                .fillPassword("password")
+                .clickBtnLoginSubmit()
+                .clickLinkAccountInfo();
+
+        Assert.assertEquals(accountInfoPageFactory.getEmailFldValue(), "user@localhost.com");
     }
 }

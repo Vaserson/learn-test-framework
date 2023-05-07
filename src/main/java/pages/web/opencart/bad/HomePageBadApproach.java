@@ -1,10 +1,11 @@
-package pages.web.opencart;
+package pages.web.opencart.bad;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.web.BasePage;
 
-public class HomePage extends BasePage {
+public class HomePageBadApproach extends BasePage {
 
     // HOME PAGE
     private final By myAccountDropDown = By.xpath("//i[@class='fa fa-user']");
@@ -19,8 +20,8 @@ public class HomePage extends BasePage {
     private final By linkAccountInfo = By.linkText("Edit your account information");
 
 
-    public HomePage(WebDriver driver) {
-        super(driver);
+    public HomePageBadApproach(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
     }
 
 
