@@ -14,14 +14,7 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp() {
-        String browser;
-        if (System.getProperty("browser") != null) {
-            browser = System.getProperty("browser");
-        } else {
-            browser = "chrome";
-        }
-        driver = new Driver().initDriver(browser);
-
+        driver = new Driver().initDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
