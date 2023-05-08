@@ -6,15 +6,21 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.web.opencart.bad.HomePageBadApproach;
 import pages.web.opencart.bpmethods.AccountInfoPageBPMethods;
 import pages.web.opencart.bpmethods.HomePageBPMethods;
 import pages.web.opencart.explicit.AccountInfoPageExplicit;
 import pages.web.opencart.explicit.HomePageExplicit;
+import pages.web.opencart.nochaining.AccountInfoPageNoChaining;
+import pages.web.opencart.nochaining.AccountPageNoChaining;
+import pages.web.opencart.nochaining.HomePageNoChaining;
+import pages.web.opencart.nochaining.LoginPageNoChaining;
 import pages.web.opencart.pagefactory.AccountInfoPageFactory;
 import pages.web.opencart.pagefactory.HomePageFactory;
 import pages.web.opencart.standard.AccountInfoPageStandard;
+import pages.web.opencart.standard.AccountPageStandard;
 import pages.web.opencart.standard.HomePageStandard;
-import pages.web.opencart.bad.HomePageBadApproach;
+import pages.web.opencart.standard.LoginPageStandard;
 
 
 public class LoginTests extends BaseTest {
@@ -61,6 +67,44 @@ public class LoginTests extends BaseTest {
         homePageBadApproach.clickLinkAccountInfo();
 
         Assert.assertEquals(homePageBadApproach.getEmailFldValue(), "user@localhost.com");
+    }
+
+    @Test
+    public void successLoginPOMNoChaining() {
+        HomePageNoChaining homePageNoChaining = new HomePageNoChaining(driver, wait);
+        homePageNoChaining.clickMyAccountDropDown();
+        homePageNoChaining.clickBtnLogin();
+
+        LoginPageNoChaining loginPageNoChaining = new LoginPageNoChaining(driver, wait);
+        loginPageNoChaining.fillEmail("sdfadsf");
+        loginPageNoChaining.fillPassword("dsfdsdf");
+        loginPageNoChaining.clickBtnLoginSubmit();
+
+        AccountPageNoChaining accountPageNoChaining = new AccountPageNoChaining(driver, wait);
+        accountPageNoChaining.clickLinkAccountInfo();
+
+        AccountInfoPageNoChaining accountInfoPageNoChaining = new AccountInfoPageNoChaining(driver, wait);
+
+        Assert.assertEquals(accountInfoPageNoChaining.getEmailFldValue(), "user@localhost.com");
+    }
+
+    @Test
+    public void successLoginPOMChaining() {
+        new HomePageStandard(driver, wait)
+                .clickMyAccountDropDown()
+                .clickBtnLogin();
+
+        new LoginPageStandard(driver, wait)
+                .fillEmail("user@localhost.com")
+                .fillPassword("password")
+                .clickBtnLoginSubmit();
+
+        new AccountPageStandard(driver, wait)
+                .clickLinkAccountInfo();
+
+        AccountInfoPageStandard accountInfoPageStandard = new AccountInfoPageStandard(driver, wait);
+
+        Assert.assertEquals(accountInfoPageStandard.getEmailFldValue(), "user@localhost.com");
     }
 
     @Test
